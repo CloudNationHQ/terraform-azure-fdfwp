@@ -8,6 +8,7 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "policy" {
   custom_block_response_status_code = try(var.config.policy.custom_block_response_status_code, null)
   custom_block_response_body        = try(var.config.policy.custom_block_response_body, null)
   request_body_check_enabled        = try(var.config.policy.request_body_check_enabled, false)
+  tags                              = try(var.config.tags, var.tags, {})
 
   dynamic "custom_rule" {
     for_each = try(
