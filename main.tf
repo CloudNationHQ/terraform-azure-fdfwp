@@ -113,7 +113,7 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "policy" {
 }
 
 resource "azurerm_cdn_frontdoor_security_policy" "policy" {
-  for_each = lookup(var.config, "security_policy", {})
+  for_each = lookup(var.config, "security_policy", null) != null ? { "policy" = var.config.security_policy } : {}
 
   name                     = each.value.name
   cdn_frontdoor_profile_id = var.config.frontdoor_id
@@ -123,12 +123,12 @@ resource "azurerm_cdn_frontdoor_security_policy" "policy" {
       cdn_frontdoor_firewall_policy_id = azurerm_cdn_frontdoor_firewall_policy.policy.id
 
       dynamic "association" {
-        for_each = try(each.value.associations, {})
+        for_each = lookup(each.value, "associations", {})
         content {
           patterns_to_match = association.value.patterns_to_match
 
           dynamic "domain" {
-            for_each = try(association.value.domains, {})
+            for_each = lookup(association.value, "domains", {})
             content {
               cdn_frontdoor_domain_id = domain.value.domain_id
             }
