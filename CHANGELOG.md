@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/CloudNationHQ/terraform-azure-fdfwp/compare/v1.1.0...v1.2.0) (2024-11-12)
+
+
+### Features
+
+* add type definitions ([#8](https://github.com/CloudNationHQ/terraform-azure-fdfwp/issues/8)) ([031728f](https://github.com/CloudNationHQ/terraform-azure-fdfwp/commit/031728f7a9012e2cf029ef173cbfdccf18a549a0))
+
 ## [1.1.0](https://github.com/CloudNationHQ/terraform-azure-fdfwp/compare/v1.0.1...v1.1.0) (2024-11-12)
 
 
