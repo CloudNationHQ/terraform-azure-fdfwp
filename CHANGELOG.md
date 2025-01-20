@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.3.0](https://github.com/CloudNationHQ/terraform-azure-fdfwp/compare/v1.2.0...v1.3.0) (2025-01-20)
+
+
+### Features
+
+* **deps:** bump github.com/gruntwork-io/terratest in /tests ([#10](https://github.com/CloudNationHQ/terraform-azure-fdfwp/issues/10)) ([d6cd9cc](https://github.com/CloudNationHQ/terraform-azure-fdfwp/commit/d6cd9cc7e1bd33a83fa1838cf80d0444b0eb901b))
+* **deps:** bump golang.org/x/crypto from 0.29.0 to 0.31.0 in /tests ([#13](https://github.com/CloudNationHQ/terraform-azure-fdfwp/issues/13)) ([be47a5a](https://github.com/CloudNationHQ/terraform-azure-fdfwp/commit/be47a5a0684ee4085203deefef0f87c5f00cf29c))
+* **deps:** bump golang.org/x/net from 0.31.0 to 0.33.0 in /tests ([#14](https://github.com/CloudNationHQ/terraform-azure-fdfwp/issues/14)) ([1317cfb](https://github.com/CloudNationHQ/terraform-azure-fdfwp/commit/1317cfb6db5f34fa8e4edf3fc71d30e916d95a19))
+* remove temporary files when deployment tests fails ([#11](https://github.com/CloudNationHQ/terraform-azure-fdfwp/issues/11)) ([c4b6942](https://github.com/CloudNationHQ/terraform-azure-fdfwp/commit/c4b69422efee9d7c39ddced170ac8e7f4172f015))
+
 ## [1.2.0](https://github.com/CloudNationHQ/terraform-azure-fdfwp/compare/v1.1.0...v1.2.0) (2024-11-12)
 
 
