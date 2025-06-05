@@ -1,6 +1,6 @@
 module "naming" {
   source  = "cloudnationhq/naming/azure"
-  version = "~> 0.1"
+  version = "~> 0.24"
 
   suffix = ["demo", "dev"]
 }
@@ -19,22 +19,17 @@ module "rg" {
 
 module "policy" {
   source  = "cloudnationhq/fdfwp/azure"
-  version = "~> 1.0"
+  version = "~> 2.0"
 
   config = {
-    name           = module.naming.cdn_frontdoor_firewall_policy.name
-    resource_group = module.rg.groups.demo.name
-    sku_name       = "Premium_AzureFrontDoor"
-
-    policy = {
-      mode = "Prevention"
-    }
-
+    name                = module.naming.cdn_frontdoor_firewall_policy.name
+    resource_group_name = module.rg.groups.demo.name
+    sku_name            = "Premium_AzureFrontDoor"
+    mode                = "Prevention"
     managed_rules = {
       default_ruleset = {
-        type    = "DefaultRuleSet"
-        version = "1.0"
-        action  = "Block"
+        type   = "DefaultRuleSet"
+        action = "Block"
         overrides = {
           sqli_rules = {
             rule_group_name = "SQLI"
@@ -65,9 +60,8 @@ module "policy" {
         }
       }
       bot_protection = {
-        type    = "Microsoft_BotManagerRuleSet"
-        version = "1.0"
-        action  = "Block"
+        type   = "Microsoft_BotManagerRuleSet"
+        action = "Block"
       }
     }
   }
