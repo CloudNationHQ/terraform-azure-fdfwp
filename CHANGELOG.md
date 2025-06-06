@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/CloudNationHQ/terraform-azure-fdfwp/compare/v1.3.0...v2.0.0) (2025-06-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* The data structure changed, causing a recreate on existing resources.
+
+### Features
+
+* small refactor ([#20](https://github.com/CloudNationHQ/terraform-azure-fdfwp/issues/20)) ([9d440cc](https://github.com/CloudNationHQ/terraform-azure-fdfwp/commit/9d440cca5c5ededfbd15f7afb4a4ba5854a5e4f5))
+
 ## [1.3.0](https://github.com/CloudNationHQ/terraform-azure-fdfwp/compare/v1.2.0...v1.3.0) (2025-01-20)
 
 
