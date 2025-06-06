@@ -11,6 +11,12 @@
 
 * small refactor ([#20](https://github.com/CloudNationHQ/terraform-azure-fdfwp/issues/20)) ([9d440cc](https://github.com/CloudNationHQ/terraform-azure-fdfwp/commit/9d440cca5c5ededfbd15f7afb4a4ba5854a5e4f5))
 
+### Upgrade from v1.3.0 to v2.0.0:
+
+- Update module reference to: `version = "~> 2.0"`
+- The property and variable resource_group is renamed to resource_group_name
+- The data structure is changed for the properties sku_name, enabled, mode, redirect_url, custom_block_response_status_code, custom_block_response_body and request_body_check_enabled for the frontdoor firewall policy resource
+
 ## [1.3.0](https://github.com/CloudNationHQ/terraform-azure-fdfwp/compare/v1.2.0...v1.3.0) (2025-01-20)
 
 
