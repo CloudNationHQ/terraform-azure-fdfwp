@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.0](https://github.com/CloudNationHQ/terraform-azure-fdfwp/compare/v2.0.0...v2.1.0) (2025-11-04)
+
+
+### Features
+
+* add missing properties and remove redundant null values ([#28](https://github.com/CloudNationHQ/terraform-azure-fdfwp/issues/28)) ([90f1ed8](https://github.com/CloudNationHQ/terraform-azure-fdfwp/commit/90f1ed840a545d5437d0ac69c122d0c8322585d5))
+* **deps:** bump github.com/cloudnationhq/az-cn-go-validor in /tests ([#27](https://github.com/CloudNationHQ/terraform-azure-fdfwp/issues/27)) ([e3c8426](https://github.com/CloudNationHQ/terraform-azure-fdfwp/commit/e3c84263437b2616db3f241d4f2233260dce2f08))
+
 ## [2.0.0](https://github.com/CloudNationHQ/terraform-azure-fdfwp/compare/v1.3.0...v2.0.0) (2025-06-05)
 
 
