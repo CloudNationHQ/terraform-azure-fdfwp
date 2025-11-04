@@ -48,32 +48,41 @@ Type:
 
 ```hcl
 object({
-    name                = string
-    frontdoor_id        = optional(string, null)
-    resource_group_name = optional(string, null)
-    sku_name            = optional(string, "Standard_AzureFrontDoor")
-    tags                = optional(map(string))
-    policy = optional(object({
-      enabled                           = optional(bool, true)
-      mode                              = optional(string, "Prevention")
-      redirect_url                      = optional(string, null)
-      custom_block_response_status_code = optional(number, null)
-      custom_block_response_body        = optional(string, null)
-      request_body_check_enabled        = optional(bool, false)
-    }), null)
+    name                                      = string
+    frontdoor_id                              = optional(string)
+    resource_group_name                       = optional(string)
+    sku_name                                  = optional(string, "Standard_AzureFrontDoor")
+    tags                                      = optional(map(string))
+    enabled                                   = optional(bool, true)
+    mode                                      = optional(string, "Prevention")
+    redirect_url                              = optional(string)
+    custom_block_response_status_code         = optional(number)
+    custom_block_response_body                = optional(string)
+    request_body_check_enabled                = optional(bool, true)
+    captcha_cookie_expiration_in_minutes      = optional(number)
+    js_challenge_cookie_expiration_in_minutes = optional(number)
+    log_scrubbing = optional(object({
+      enabled = optional(bool, true)
+      scrubbing_rules = optional(map(object({
+        enabled        = optional(bool, true)
+        match_variable = string
+        operator       = optional(string, "Equals")
+        selector       = optional(string)
+      })), {})
+    }))
     custom_rules = optional(map(object({
       type                           = string
       name                           = string
       priority                       = number
       action                         = string
       enabled                        = optional(bool, true)
-      rate_limit_threshold           = optional(number, null)
-      rate_limit_duration_in_minutes = optional(number, null)
+      rate_limit_threshold           = optional(number)
+      rate_limit_duration_in_minutes = optional(number)
       match_conditions = optional(map(object({
         operator           = string
         match_values       = list(string)
         match_variable     = string
-        selector           = optional(string, null)
+        selector           = optional(string)
         transform          = optional(list(string), [])
         negation_condition = optional(bool, false)
       })), {})
@@ -113,7 +122,7 @@ object({
           domain_id = string
         })), {})
       })), {})
-    }), null)
+    }))
   })
 ```
 
