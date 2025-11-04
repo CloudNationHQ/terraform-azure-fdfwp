@@ -5,18 +5,41 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "policy" {
     ), var.resource_group_name
   )
 
-  name                              = var.config.name
-  sku_name                          = var.config.sku_name
-  enabled                           = var.config.enabled
-  mode                              = var.config.mode
-  redirect_url                      = var.config.redirect_url
-  custom_block_response_status_code = var.config.custom_block_response_status_code
-  custom_block_response_body        = var.config.custom_block_response_body
-  request_body_check_enabled        = var.config.request_body_check_enabled
+  name                                      = var.config.name
+  sku_name                                  = var.config.sku_name
+  enabled                                   = var.config.enabled
+  mode                                      = var.config.mode
+  redirect_url                              = var.config.redirect_url
+  custom_block_response_status_code         = var.config.custom_block_response_status_code
+  custom_block_response_body                = var.config.custom_block_response_body
+  request_body_check_enabled                = var.config.request_body_check_enabled
+  captcha_cookie_expiration_in_minutes      = var.config.captcha_cookie_expiration_in_minutes
+  js_challenge_cookie_expiration_in_minutes = var.config.js_challenge_cookie_expiration_in_minutes
 
   tags = coalesce(
     var.config.tags, var.tags
   )
+
+  dynamic "log_scrubbing" {
+    for_each = lookup(var.config, "log_scrubbing", null) != null ? [var.config.log_scrubbing] : []
+
+    content {
+      enabled = log_scrubbing.value.enabled
+
+      dynamic "scrubbing_rule" {
+        for_each = try(
+          log_scrubbing.value.scrubbing_rules, {}
+        )
+
+        content {
+          enabled        = scrubbing_rule.value.enabled
+          match_variable = scrubbing_rule.value.match_variable
+          operator       = scrubbing_rule.value.operator
+          selector       = scrubbing_rule.value.selector
+        }
+      }
+    }
+  }
 
   dynamic "custom_rule" {
     for_each = try(
