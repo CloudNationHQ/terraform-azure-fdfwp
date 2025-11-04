@@ -27,12 +27,14 @@ module "policy" {
     sku_name            = "Premium_AzureFrontDoor"
     managed_rules = {
       default_ruleset = {
-        type   = "DefaultRuleSet"
-        action = "Block"
+        type    = "DefaultRuleSet"
+        version = "1.0"
+        action  = "Block"
       }
       bot_protection = {
-        type   = "Microsoft_BotManagerRuleSet"
-        action = "Block"
+        type    = "Microsoft_BotManagerRuleSet"
+        version = "1.0"
+        action  = "Block"
       }
     }
   }

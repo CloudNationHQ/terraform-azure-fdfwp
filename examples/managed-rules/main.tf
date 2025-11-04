@@ -28,8 +28,9 @@ module "policy" {
     mode                = "Prevention"
     managed_rules = {
       default_ruleset = {
-        type   = "DefaultRuleSet"
-        action = "Block"
+        type    = "DefaultRuleSet"
+        version = "1.0"
+        action  = "Block"
         overrides = {
           sqli_rules = {
             rule_group_name = "SQLI"
@@ -60,8 +61,9 @@ module "policy" {
         }
       }
       bot_protection = {
-        type   = "Microsoft_BotManagerRuleSet"
-        action = "Block"
+        type    = "Microsoft_BotManagerRuleSet"
+        version = "1.0"
+        action  = "Block"
       }
     }
   }
