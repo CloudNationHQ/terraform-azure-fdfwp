@@ -1,35 +1,31 @@
-resource "azurerm_cdn_frontdoor_firewall_policy" "policy" {
+resource "azurerm_cdn_frontdoor_firewall_policy" "this" {
   resource_group_name = coalesce(
-    lookup(
-      var.config, "resource_group_name", null
-    ), var.resource_group_name
+    var.cdn_frontdoor_firewall_policy.resource_group_name, var.resource_group_name
   )
 
-  name                                      = var.config.name
-  sku_name                                  = var.config.sku_name
-  enabled                                   = var.config.enabled
-  mode                                      = var.config.mode
-  redirect_url                              = var.config.redirect_url
-  custom_block_response_status_code         = var.config.custom_block_response_status_code
-  custom_block_response_body                = var.config.custom_block_response_body
-  request_body_check_enabled                = var.config.request_body_check_enabled
-  captcha_cookie_expiration_in_minutes      = var.config.captcha_cookie_expiration_in_minutes
-  js_challenge_cookie_expiration_in_minutes = var.config.js_challenge_cookie_expiration_in_minutes
+  name                                      = var.cdn_frontdoor_firewall_policy.name
+  sku_name                                  = var.cdn_frontdoor_firewall_policy.sku_name
+  enabled                                   = var.cdn_frontdoor_firewall_policy.enabled
+  mode                                      = var.cdn_frontdoor_firewall_policy.mode
+  redirect_url                              = var.cdn_frontdoor_firewall_policy.redirect_url
+  custom_block_response_status_code         = var.cdn_frontdoor_firewall_policy.custom_block_response_status_code
+  custom_block_response_body                = var.cdn_frontdoor_firewall_policy.custom_block_response_body
+  request_body_check_enabled                = var.cdn_frontdoor_firewall_policy.request_body_check_enabled
+  captcha_cookie_expiration_in_minutes      = var.cdn_frontdoor_firewall_policy.captcha_cookie_expiration_in_minutes
+  js_challenge_cookie_expiration_in_minutes = var.cdn_frontdoor_firewall_policy.js_challenge_cookie_expiration_in_minutes
 
   tags = coalesce(
-    var.config.tags, var.tags
+    var.cdn_frontdoor_firewall_policy.tags, var.tags
   )
 
   dynamic "log_scrubbing" {
-    for_each = lookup(var.config, "log_scrubbing", null) != null ? [var.config.log_scrubbing] : []
+    for_each = var.cdn_frontdoor_firewall_policy.log_scrubbing != null ? { "this" = var.cdn_frontdoor_firewall_policy.log_scrubbing } : {}
 
     content {
       enabled = log_scrubbing.value.enabled
 
       dynamic "scrubbing_rule" {
-        for_each = try(
-          log_scrubbing.value.scrubbing_rules, {}
-        )
+        for_each = log_scrubbing.value.scrubbing_rules
 
         content {
           enabled        = scrubbing_rule.value.enabled
@@ -42,9 +38,7 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "policy" {
   }
 
   dynamic "custom_rule" {
-    for_each = try(
-      var.config.custom_rules, {}
-    )
+    for_each = var.cdn_frontdoor_firewall_policy.custom_rules
 
     content {
       name                           = custom_rule.value.name
@@ -56,9 +50,7 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "policy" {
       rate_limit_duration_in_minutes = custom_rule.value.rate_limit_duration_in_minutes
 
       dynamic "match_condition" {
-        for_each = try(
-          custom_rule.value.match_conditions, {}
-        )
+        for_each = custom_rule.value.match_conditions
 
         content {
           operator           = match_condition.value.operator
@@ -73,9 +65,7 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "policy" {
   }
 
   dynamic "managed_rule" {
-    for_each = try(
-      var.config.managed_rules, {}
-    )
+    for_each = var.cdn_frontdoor_firewall_policy.managed_rules
 
     content {
       type    = managed_rule.value.type
@@ -83,9 +73,7 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "policy" {
       action  = managed_rule.value.action
 
       dynamic "exclusion" {
-        for_each = try(
-          managed_rule.value.exclusions, {}
-        )
+        for_each = managed_rule.value.exclusions
 
         content {
           match_variable = exclusion.value.match_variable
@@ -95,17 +83,13 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "policy" {
       }
 
       dynamic "override" {
-        for_each = try(
-          managed_rule.value.overrides, {}
-        )
+        for_each = managed_rule.value.overrides
 
         content {
           rule_group_name = override.value.rule_group_name
 
           dynamic "exclusion" {
-            for_each = try(
-              override.value.exclusions, {}
-            )
+            for_each = override.value.exclusions
 
             content {
               match_variable = exclusion.value.match_variable
@@ -115,9 +99,7 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "policy" {
           }
 
           dynamic "rule" {
-            for_each = try(
-              override.value.rules, {}
-            )
+            for_each = override.value.rules
 
             content {
               rule_id = rule.key
@@ -125,9 +107,7 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "policy" {
               enabled = rule.value.enabled
 
               dynamic "exclusion" {
-                for_each = try(
-                  rule.value.exclusions, {}
-                )
+                for_each = rule.value.exclusions
 
                 content {
                   match_variable = exclusion.value.match_variable
@@ -143,28 +123,24 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "policy" {
   }
 }
 
-resource "azurerm_cdn_frontdoor_security_policy" "policy" {
-  for_each = lookup(var.config, "security_policy", null) != null ? { "policy" = var.config.security_policy } : {}
+resource "azurerm_cdn_frontdoor_security_policy" "this" {
+  for_each = var.cdn_frontdoor_firewall_policy.security_policy != null ? { "policy" = var.cdn_frontdoor_firewall_policy.security_policy } : {}
 
   name                     = each.value.name
-  cdn_frontdoor_profile_id = var.config.frontdoor_id
+  cdn_frontdoor_profile_id = var.cdn_frontdoor_firewall_policy.frontdoor_id
 
   security_policies {
     firewall {
-      cdn_frontdoor_firewall_policy_id = azurerm_cdn_frontdoor_firewall_policy.policy.id
+      cdn_frontdoor_firewall_policy_id = azurerm_cdn_frontdoor_firewall_policy.this.id
 
       dynamic "association" {
-        for_each = lookup(
-          each.value, "associations", {}
-        )
+        for_each = each.value.associations
 
         content {
           patterns_to_match = association.value.patterns_to_match
 
           dynamic "domain" {
-            for_each = lookup(
-              association.value, "domains", {}
-            )
+            for_each = association.value.domains
 
             content {
               cdn_frontdoor_domain_id = domain.value.domain_id
