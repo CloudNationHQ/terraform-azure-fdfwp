@@ -1,4 +1,4 @@
-variable "config" {
+variable "cdn_frontdoor_firewall_policy" {
   description = "contains frontdoor firewall and security policy configuration"
   type = object({
     name                                      = string
@@ -6,20 +6,20 @@ variable "config" {
     resource_group_name                       = optional(string)
     sku_name                                  = optional(string, "Standard_AzureFrontDoor")
     tags                                      = optional(map(string))
-    enabled                                   = optional(bool, true)
+    enabled                                   = optional(bool)
     mode                                      = optional(string, "Prevention")
     redirect_url                              = optional(string)
     custom_block_response_status_code         = optional(number)
     custom_block_response_body                = optional(string)
-    request_body_check_enabled                = optional(bool, true)
+    request_body_check_enabled                = optional(bool)
     captcha_cookie_expiration_in_minutes      = optional(number)
     js_challenge_cookie_expiration_in_minutes = optional(number)
     log_scrubbing = optional(object({
-      enabled = optional(bool, true)
+      enabled = optional(bool)
       scrubbing_rules = optional(map(object({
-        enabled        = optional(bool, true)
+        enabled        = optional(bool)
         match_variable = string
-        operator       = optional(string, "Equals")
+        operator       = optional(string)
         selector       = optional(string)
       })), {})
     }))
@@ -28,7 +28,7 @@ variable "config" {
       name                           = string
       priority                       = number
       action                         = string
-      enabled                        = optional(bool, true)
+      enabled                        = optional(bool)
       rate_limit_threshold           = optional(number)
       rate_limit_duration_in_minutes = optional(number)
       match_conditions = optional(map(object({
@@ -36,8 +36,8 @@ variable "config" {
         match_values       = list(string)
         match_variable     = string
         selector           = optional(string)
-        transform          = optional(list(string), [])
-        negation_condition = optional(bool, false)
+        transform          = optional(list(string))
+        negation_condition = optional(bool)
       })), {})
     })), {})
     managed_rules = optional(map(object({
@@ -58,7 +58,7 @@ variable "config" {
         })), {})
         rules = optional(map(object({
           action  = string
-          enabled = optional(bool, true)
+          enabled = optional(bool)
           exclusions = optional(map(object({
             match_variable = string
             operator       = string
@@ -79,7 +79,7 @@ variable "config" {
   })
 
   validation {
-    condition     = var.config.resource_group_name != null || var.resource_group_name != null
+    condition     = var.cdn_frontdoor_firewall_policy.resource_group_name != null || var.resource_group_name != null
     error_message = "resource group name must be provided either in the object or as a separate variable."
   }
 }

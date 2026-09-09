@@ -21,26 +21,26 @@ The following requirements are needed by this module:
 
 - <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (~> 1.0)
 
-- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 4.0)
+- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 5.0)
 
 ## Providers
 
 The following providers are used by this module:
 
-- <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) (~> 4.0)
+- <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) (~> 5.0)
 
 ## Resources
 
 The following resources are used by this module:
 
-- [azurerm_cdn_frontdoor_firewall_policy.policy](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cdn_frontdoor_firewall_policy) (resource)
-- [azurerm_cdn_frontdoor_security_policy.policy](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cdn_frontdoor_security_policy) (resource)
+- [azurerm_cdn_frontdoor_firewall_policy.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cdn_frontdoor_firewall_policy) (resource)
+- [azurerm_cdn_frontdoor_security_policy.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/cdn_frontdoor_security_policy) (resource)
 
 ## Required Inputs
 
 The following input variables are required:
 
-### <a name="input_config"></a> [config](#input\_config)
+### <a name="input_cdn_frontdoor_firewall_policy"></a> [cdn\_frontdoor\_firewall\_policy](#input\_cdn\_frontdoor\_firewall\_policy)
 
 Description: contains frontdoor firewall and security policy configuration
 
@@ -53,20 +53,20 @@ object({
     resource_group_name                       = optional(string)
     sku_name                                  = optional(string, "Standard_AzureFrontDoor")
     tags                                      = optional(map(string))
-    enabled                                   = optional(bool, true)
+    enabled                                   = optional(bool)
     mode                                      = optional(string, "Prevention")
     redirect_url                              = optional(string)
     custom_block_response_status_code         = optional(number)
     custom_block_response_body                = optional(string)
-    request_body_check_enabled                = optional(bool, true)
+    request_body_check_enabled                = optional(bool)
     captcha_cookie_expiration_in_minutes      = optional(number)
     js_challenge_cookie_expiration_in_minutes = optional(number)
     log_scrubbing = optional(object({
-      enabled = optional(bool, true)
+      enabled = optional(bool)
       scrubbing_rules = optional(map(object({
-        enabled        = optional(bool, true)
+        enabled        = optional(bool)
         match_variable = string
-        operator       = optional(string, "Equals")
+        operator       = optional(string)
         selector       = optional(string)
       })), {})
     }))
@@ -75,7 +75,7 @@ object({
       name                           = string
       priority                       = number
       action                         = string
-      enabled                        = optional(bool, true)
+      enabled                        = optional(bool)
       rate_limit_threshold           = optional(number)
       rate_limit_duration_in_minutes = optional(number)
       match_conditions = optional(map(object({
@@ -83,8 +83,8 @@ object({
         match_values       = list(string)
         match_variable     = string
         selector           = optional(string)
-        transform          = optional(list(string), [])
-        negation_condition = optional(bool, false)
+        transform          = optional(list(string))
+        negation_condition = optional(bool)
       })), {})
     })), {})
     managed_rules = optional(map(object({
@@ -105,7 +105,7 @@ object({
         })), {})
         rules = optional(map(object({
           action  = string
-          enabled = optional(bool, true)
+          enabled = optional(bool)
           exclusions = optional(map(object({
             match_variable = string
             operator       = string
@@ -179,11 +179,7 @@ To update the module's documentation run `make doc`
 
 We welcome contributions from the community! Whether it's reporting a bug, suggesting a new feature, or submitting a pull request, your input is highly valued.
 
-For more information, please see our contribution [guidelines](./CONTRIBUTING.md). <br><br>
-
-<a href="https://github.com/cloudnationhq/terraform-azure-fdfwp/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=cloudnationhq/terraform-azure-fdfwp" />
-</a>
+For more information, please see our contribution [guidelines](./CONTRIBUTING.md).
 
 ## License
 
