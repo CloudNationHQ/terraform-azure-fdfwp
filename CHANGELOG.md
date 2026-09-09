@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.0.0](https://github.com/CloudNationHQ/terraform-azure-fdfwp/compare/v2.1.0...v3.0.0) (2026-09-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* this change causes recreates
+
+### Features
+
+* azurerm provider 5 upgrade ([#35](https://github.com/CloudNationHQ/terraform-azure-fdfwp/issues/35)) ([8c405cc](https://github.com/CloudNationHQ/terraform-azure-fdfwp/commit/8c405ccefe8fefe0d03a6ff9550379db97496ffa))
+* **deps:** bump golang.org/x/crypto from 0.36.0 to 0.45.0 in /tests ([#31](https://github.com/CloudNationHQ/terraform-azure-fdfwp/issues/31)) ([ebbf805](https://github.com/CloudNationHQ/terraform-azure-fdfwp/commit/ebbf805e1cb004b712426730866580f3d9fa6d7c))
+
 ## [2.1.0](https://github.com/CloudNationHQ/terraform-azure-fdfwp/compare/v2.0.0...v2.1.0) (2025-11-04)
 
 
