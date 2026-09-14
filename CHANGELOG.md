@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.1.0](https://github.com/CloudNationHQ/terraform-azure-fdfwp/compare/v3.0.0...v3.1.0) (2026-09-14)
+
+
+### Features
+
+* **deps:** bump github.com/cloudnationhq/az-cn-go-validor in /tests ([#40](https://github.com/CloudNationHQ/terraform-azure-fdfwp/issues/40)) ([d1a5c8c](https://github.com/CloudNationHQ/terraform-azure-fdfwp/commit/d1a5c8c2b52ef8bf426b94ac68459092d79813d6))
+* **deps:** bump golang.org/x/crypto from 0.45.0 to 0.52.0 in /tests ([#37](https://github.com/CloudNationHQ/terraform-azure-fdfwp/issues/37)) ([cb29bca](https://github.com/CloudNationHQ/terraform-azure-fdfwp/commit/cb29bcaa5a2a69fef2bfc958bacc79b66072a656))
+* **deps:** bump golang.org/x/net from 0.54.0 to 0.55.0 in /tests ([#39](https://github.com/CloudNationHQ/terraform-azure-fdfwp/issues/39)) ([f5d09de](https://github.com/CloudNationHQ/terraform-azure-fdfwp/commit/f5d09de2f37a3b50967238304505484c7b5ca689))
+
 ## [3.0.0](https://github.com/CloudNationHQ/terraform-azure-fdfwp/compare/v2.1.0...v3.0.0) (2026-09-09)
 
 
